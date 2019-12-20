@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="frontend/libraries/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="frontend/libraries/xzoom/xzoom.css">
+    <link rel="stylesheet" href="frontend/libraries/gijgo/css/gijgo.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Assistant:200,300,400,600,700,800|Playfair+Display:400,400i,700,700i,900,900i&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="frontend/style/main.css">
+
+</head>
+<body>
+    <!-- Navbar -->
+    <div class="container">
+        <nav class="row navbar navbar-expand-lg navbar-light bg-white">
+            <div class="navbar-nav ml-auto mr-auto mr-sm-auto mr-lg-0 mr-md-auto">
+                <a href="index.html" class="navbar-brand">
+                    <img src="frontend/images/Logo Erdev.png" alt="Logo">
+                </a>
+            </div>
+            <ul class="navbar-nav mr-auto d-none d-lg-block">
+                <li>
+                    <span class="text-muted">
+                        | &nbsp; Beyond the explored of the world
+                    </span>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+    
+
+
+<script src="frontend/libraries/jquery/jquery-3.4.1.min.js"></script>
+<script src="frontend/libraries/bootstrap/js/bootstrap.min.js"></script>
+<script src="frontend/libraries/retina/retina.min.js"></script>
+<script src="frontend/libraries/xzoom/xzoom.min.js"></script>
+<script src="frontend/libraries/gijgo/js/gijgo.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.xzoom, .xzoom-gallery').xzoom({
+            fadeIn: true,
+            zoomWidth: 300,
+            zoomHeight: 300,
+            title: false,
+            tint: '#333'
+        });
+
+        $(".datepicker").datepicker({
+            uiLibrary: 'bootstrap4',
+            icons: {
+                rightIcon: '<img src="frontend/images/icon_doe.png" height="22">'
+            }
+        })
+    });
+</script>
+</body>
+</html>

@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use App\Transaction;
 use App\TransactionDetail;
 use App\TravelPackage;
-
+use Mail;
+use App\Mail\TransactionSuccess;
 use Carbon\Carbon;
 
 use Illuminate\Http\Request;
@@ -96,10 +97,17 @@ class CheckoutController extends Controller
     
     public function success(Request $request, $id){
 
-        $transaction = Transaction::findOrFail($id);
+        $transaction = Transaction::with(['details','travel_package.galleries','user'])
+        ->findOrFail($id);
         $transaction->transaction_status = 'PENDING';
 
         $transaction->save();
+        // return $transaction;
+        // Kirim email ke user e-tiket nya
+        Mail::to($transaction->user->email)->send(
+            new TransactionSuccess($transaction) // maksud new TransactionSuccess($transaction) jadi data diparameter akan di passing ke construct di class TransactionSuccess
+        );
+
         return view('pages.success');
     }   
 }

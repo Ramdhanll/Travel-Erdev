@@ -11,6 +11,10 @@ use Carbon\Carbon;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
+use Midtrans\config;
+use Midtrans\snap;
+
 class CheckoutController extends Controller
 {
     public function index(Request $request, $id){
@@ -102,12 +106,47 @@ class CheckoutController extends Controller
         $transaction->transaction_status = 'PENDING';
 
         $transaction->save();
-        // return $transaction;
-        // Kirim email ke user e-tiket nya
-        Mail::to($transaction->user->email)->send(
-            new TransactionSuccess($transaction) // maksud new TransactionSuccess($transaction) jadi data diparameter akan di passing ke construct di class TransactionSuccess
-        );
 
-        return view('pages.success');
+        // Set Configurasi Midtrans
+        // Set your Merchant Server Key
+        Config::$serverKey = config('midtrans.serverKey');
+        Config::$isProduction = config('midtrans.isProduction');
+        Config::$isSanitized = config('midtrans.isSanitized');
+        Config::$is3ds = config('midtrans.is3ds');
+
+        // Buat array untuk dikirim kemidtrans
+        $midtrans_param = [
+            'transaction_details' => [
+                'order_id'  => 'MIDTRANS-' . $transaction->id,
+                'gross_amount'  => (int) $transaction->transaction_total
+            ],
+            'customer_details'  => [
+                'first_name'    => $transaction->user->name,
+                'email'    => $transaction->user->email,
+            ],
+            'enabled_payments'  => ['gopay'],
+            'vtweb' => []
+        ];
+
+
+        try {
+            // Ambil halaman payment midrtans
+            $paymentUrl = Snap::createTransaction($midtrans_param)->redirect_url;
+
+            // Redirect
+            header("Location: " . $paymentUrl);
+            dd($paymentUrl);
+        } catch (Exception $e) {
+            echo $e->getMessage();
+        }
+
+        /* SEBELUM PAKE MIDTRANS !
+            // // Kirim email ke user e-tiket nya
+            // Mail::to($transaction->user->email)->send(
+            //     new TransactionSuccess($transaction) // maksud new TransactionSuccess($transaction) jadi data diparameter akan di passing ke construct di class TransactionSuccess
+            // );
+
+            // return view('pages.success');
+        */
     }   
 }

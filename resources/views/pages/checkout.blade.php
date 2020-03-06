@@ -174,39 +174,13 @@
                             <hr>
                             <h2>Payment Instruction</h2>
                             <p class="payment-instructions">
-                                Please complate the payment before you
-                                continue the trip
+                                You will be redirected to another page to pay using GO-PAY
                             </p>
-                            <div class="bank">
-                                <div class="bank-item pb-3">
-                                    <img src="{{ url('frontend/images/IC-bank.png') }}" class="bank-image">
-                                    <div class="description">
-                                        <h3>PT Erdev IDN</h3>
-                                        <p>
-                                            0888 0777 0666
-                                            <br>
-                                            Bank Central Asia
-                                        </p>
-                                    </div>
-                                    <div class="clearfix"></div>
-                                </div>
-                                <div class="bank-item pb-3">
-                                    <img src="{{ url('frontend/images/IC-bank.png') }}" class="bank-image">
-                                    <div class="description">
-                                        <h3>PT Erdev IDN</h3>
-                                        <p>
-                                            0811 0722 0633
-                                            <br>
-                                            Bank World Wide
-                                        </p>
-                                    </div>
-                                    <div class="clearfidx"></div>
-                                </div>
-                            </div>
+                            <img src="{{ url('frontend/images/gopay.png')}}" class="w-50" alt="">
                         </div>
                         <div class="join-container">
                             <a href="{{route('checkout-success',$item->id)}}" class="btn btn-block btn-join-now mt-3 py-2 bg-warning">
-                                I Have Made Payment
+                                Proccess Payment
                             </a>
                         </div>
                         <div class="text-center mt-3">
